@@ -42,6 +42,23 @@
 
 
             </p:panel>
+            
+             <h:form>
+
+            <p:menubar>
+
+                <p:submenu label="Selección" icon="pi pi-briefcase">
+                    <p:menuitem value="Machos" ajax="false" action="#{listaSEController.ordenarMacho()}"   />
+                    <p:menuitem value="Hembras" ajax="false" action="#{listaSEController.ordenarHembra()}" />
+                </p:submenu>
+
+            </p:menubar>
+
+        </h:form>
+            
+            
+            
+            
         </h:form>
     </ui:define>
 
