@@ -19,6 +19,8 @@
                     <p:outputLabel value="#{listaSEController.perroMostrar.nombre}"/>
                     <p:outputLabel value="Edad"/>
                     <p:outputLabel value="#{listaSEController.perroMostrar.edad}"/>
+                     <p:outputLabel value="Genero"/>
+                     <p:outputLabel value="#{listaSEController.perroMostrar.genero}"/>
                 </p:panelGrid>
                 <p:panelGrid columns="3">
                     <p:commandButton value="Primero" disabled="#{listaSEController.temp == listaSEController.listaPerros.cabeza}">
@@ -42,6 +44,7 @@
 
 
             </p:panel>
+            </h:form>
             
              <h:form>
 
@@ -59,7 +62,7 @@
             
             
             
-        </h:form>
+        
     </ui:define>
 
 </ui:composition>
