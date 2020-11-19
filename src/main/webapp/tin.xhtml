@@ -1,0 +1,154 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./templates/principal.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+
+    <ui:define name="tin">
+        Tingo tango
+
+    </ui:define>
+
+    <ui:define name="content">
+
+
+        <h:form id="frmTingoTngo" prependId="false" >
+            <p:growl id="erroresTingoTango"/>
+
+            <p:dashboard id="board" model="#{controladorTingoTango.model}" >
+
+                <p:panel id="acciones" header="ACCIONES JUEGO" style="border: #045491" >
+                    <h:panelGrid columns="3" cellpadding = "10" cellspacing = "1" style="width:700px " >
+
+                        <p:commandButton value="CONFIGURAR JUEGO" style="color: #045491" update="pnlConfigurar"
+                                         disabled="#{controladorTingoTango.listaNiñosDEC.cabezaInfante != null}" 
+                                         oncomplete="PF('dlgConfigurar').show()"
+                                         >
+
+
+                        </p:commandButton>
+
+
+                        <p:selectOneMenu id="InresarGenero"  value="#{controladorTingoTango.seleccionGeneroIngresar}" required="" >
+
+                            <f:selectItem itemLabel="Ingresar por Genero" itemEscaped="true"  />
+                            <f:selectItem itemValue="1"  itemLabel="Femenino" />
+                            <f:selectItem itemValue="2" itemLabel="Masculino" />
+
+                        </p:selectOneMenu> 
+
+                        <p:column>
+
+                            <h:outputText  value="Oportunidades"/>
+                            <p:spinner value="#{controladorTingoTango.oporGenero}" required="true" min="1 "  max="#{controladorTingoTango.numOportunidades}"/>
+                            <p:commandButton value="Reingresar"  action="#{controladorTingoTango.reingresarPorGenero()}"
+                                             update="frmTingoTngo" disabled="#{controladorTingoTango.listaNiñosDEC.cabezaInfante == null}" />
+
+                        </p:column>
+
+
+                        <p:menubar>
+
+                            <p:submenu label="Retirar por genero" icon="pi pi-briefcase" disabled="#{controladorTingoTango.listaNiñosDEC.cabezaInfante == null}"  >
+                                <p:menuitem value="Niñas" ajax="false" action="#{controladorTingoTango.retirarNiñas()}"    update="@form,erroresTingoTango"/>
+                                <p:menuitem value="Niños" ajax="false" action="#{controladorTingoTango.retirarNiños()}"    update="@form,erroresTingoTango"/>
+
+                            </p:submenu>
+
+                        </p:menubar>
+
+
+
+
+                        <p:column></p:column>
+
+                        <p:commandButton id="btnIniciarIzq" value="#{controladorTingoTango.textoBotonIzqui}" 
+                                         disabled="#{controladorTingoTango.listaNiñosDEC.cabezaInfante == null}"
+                                         style="color:#{controladorTingoTango.colorBotonIzqu} !important;"
+                                         action="#{controladorTingoTango.controlarJuegoIzqui()}" update="frmTingoTngo,erroresTingoTango" >
+
+
+
+
+                            <p:poll  interval="1"  listener="#{controladorTingoTango.pasarAnteriorDerColor()}" 
+                                     rendered="#{controladorTingoTango.estadoJuegoIzqu}"  update="Grafica" />
+
+                        </p:commandButton> 
+
+
+                        <p:commandButton value="Reiniciar juego" action="#{controladorTingoTango.reiniciar()}" disabled="#{controladorTingoTango.listaNiñosDEC.cabezaInfante == null}"  
+                                         update="frmTingoTngo">
+
+
+                        </p:commandButton>
+
+
+
+                    </h:panelGrid>
+
+                </p:panel>
+
+
+               
+
+                <p:panel id="Grafica" header="TINGO TANGO  " style="width:800px"   >
+
+                    <p:diagram   value="#{controladorTingoTango.modeloGrafica}" style="height: 700px" styleClass="ui-widget-content" >
+
+
+                    </p:diagram>
+
+                </p:panel>
+
+
+            </p:dashboard>
+
+
+
+
+
+
+            <p:dialog header="CONFIGURAR " widgetVar="dlgConfigurar" modal="true" height="200"  closeOnEscape="true">
+                <p:panel id="pnlConfigurar" header="Datos juego">
+                    <h:panelGrid columns="2">
+
+                        <h:outputText value="Numero de niños:" />
+                        <p:spinner value="#{controladorTingoTango.cantidadInfantes}" min="2" max="127"/>
+                        <h:outputText value="Numero de oportunidades:" />
+                        <p:spinner value="#{controladorTingoTango.numOportunidades}" min="1" max="127"/>
+
+                        <p:commandButton value="Guardar" action="#{controladorTingoTango.configurarJuego()}" update="frmTingoTngo" >
+
+                        </p:commandButton>
+
+                    </h:panelGrid>
+
+                </p:panel>
+            </p:dialog>
+
+
+            <p:dialog id="myDialogID" widgetVar="myDialogVar" closeOnEscape="true" modal="true" height="200"  > 
+                <p:panel id="pnlGanador" header="NIÑO GANADOR" style="background-color: #AFAFAF" >
+
+                    <p:panelGrid columns="2" style="border: #98AFC7" >
+
+                        <h:outputText value="NOMBRE" style="color: #036fab"  />
+                        <h:outputText value="#{controladorTingoTango.ayudanteColor.datoDos.infante.nombre}"  style="color: #036fab"  />
+                        <h:outputText value="ID" style="color: #036fab" />
+                        <h:outputText value="#{controladorTingoTango.ayudanteColor.datoDos.infante.identificador}"  style="color: #036fab" />
+
+                    </p:panelGrid>
+
+                </p:panel>
+            </p:dialog> 
+
+
+        </h:form>
+
+
+    </ui:define>
+</ui:composition>

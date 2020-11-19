@@ -3,51 +3,72 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-        xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui">
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <h:outputStylesheet name="./css/default.css"/>
-        <h:outputStylesheet name="./css/cssLayout.css"/>
-        <title>
-            <ui:insert name="titulo_perros">            
-            </ui:insert>
-        </title>
+        <link href="#{facesContext.externalContext.requestContextPath}/resources/css/cssLayout.css" rel="stylesheet" type="text/css" media="screen"/>
+        <title>Facelets Template</title>
+        <style type="text/css">
+            .ui-diagram-element {
+                width: 8em;
+                height: 3em;
+                line-height: 3em;
+                text-align: center;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.8);
+                /* border-radius: 3em; */
+                border: 1px solid #186080;
+                background-color: gray;
+                color: #000000;
+            }
+            .ui-diagram-element-busc {   
+                width:3em; 
+                height:3em;
+                line-height:3em;
+                text-align: center;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.8);
+                border-radius: 0em;
+                border: 1px solid #186080;
+                background-color: red;
+                color: black;
+            }
+
+            .ui-diagram-element:hover {
+                background-color: #20282b;
+            }
+
+            .ui-widget-header{
+                background-color: transparent;
+                background: transparent;
+                border: 0px;
+            }
+        </style>
+        <ui:insert name="head"></ui:insert>
     </h:head>
 
     <h:body>
-        <div id="top">
-            <ui:insert name="top">
-                <h:form>
-                    <p:menubar>
-                        <p:submenu label="Inicio" icon="pi pi-file">
-                            <p:submenu label="Gestión Perros" icon="pi pi-briefcase">
-                                <p:menuitem value="Listar Perros" action="home"  />
-                                <p:menuitem value="Ingresar Perro" action="ingresar_perro" />
-                            </p:submenu>
-                            <p:menuitem value="Open" url="#" />
-                            <p:separator />
-                            <p:menuitem value="Quit" url="#" />
-                        </p:submenu>
-                    </p:menubar>
-                </h:form>
-            </ui:insert>
+
+        <div id="top" class="top">
+            <h:form>                
+                <p:dock id="dockTop" position="top"  >
+                    <p:menuitem id="top2" value="lista de los perros" icon="/resources/imagenes/perro.jpg" action="Listaperros" ajax="false" />
+                    <p:menuitem id="top0" value="home"  icon="/resources/imagenes/casa.jpg" action="home" ajax="false"/>
+                    <p:menuitem id="top1" value="ingresar niño" icon="/resources/imagenes/ingreniño.jpg" action="ingresar_niño" ajax="false"/>
+                    <p:menuitem id="top3" value="ingresar perros" icon="/resources/imagenes/perroing.jpg" action="ingresar_perro" ajax="false"/>
+                    <p:menuitem id="mnuSuma" value="tingo tango" icon="/resources/imagenes/tingotango.jpg" action="tin" 
+                                ajax="false"/>
+                </p:dock>                   
+
+            </h:form>
+            <h:graphicImage url="/resources/im/prog.jpg" width="100" style="position: absolute!important; top:5px!important;"/>
+            <ui:insert name="top"></ui:insert>
         </div>
 
         <div id="content" class="center_content">
-            <ui:insert name="content">
-                <p:growl id="grwlErrores"/>
-            </ui:insert>
+            <ui:insert name="content"></ui:insert>
+
         </div>
 
-        <div id="bottom">
-            <center>
-                <h:graphicImage url="/resources/imagenes/logo.jpg" width="200"/>
-                <ui:insert name="bottom">
-                    
-                </ui:insert>
-            </center>
-        </div>
 
     </h:body>
 
